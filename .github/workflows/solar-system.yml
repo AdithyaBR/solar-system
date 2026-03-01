@@ -13,24 +13,16 @@ env:
 jobs:
     unit-testing:
         name: Unit Testing
-        strategy:
-          matrix:
-            node-version: [18,20]
-            operating-system: [ubuntu-latest, ubuntu-24.04, macos-latest]
-            exclude:
-              - node-version: 18
-                operating-system: macos-latest
-              - node-version: 20
-                operating-system: macos-latest                
+            
         runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
 
-        - name: Setup NodeJS Version - ${{matrix.node-version}}
+        - name: Setup NodeJS Version 
           uses: actions/setup-node@v4
           with:
-            node-version: ${{matrix.node-version}}
+            node-version: 18
     
         - name: Install Dependencies
           run: npm install
@@ -41,7 +33,7 @@ jobs:
         - name: Archive Test Result
           uses: actions/upload-artifact@v4
           with:
-            name: Mocha-Test-Result-${{ matrix.node-version }}
+            name: Mocha-Test-Result
             path: test-results.xml 
     code-coverage:
         name: Code Coverage
@@ -61,9 +53,10 @@ jobs:
         - name: Run Code Coverage
           run: npm run coverage
     
-        - name: Upload Code Coverage to Codecov
-          uses: codecov/codecov-action@v3
+        - name: archieve Code Coverage Report
+          uses: actions/upload-artifact@v4
           with:
-            token: ${{ secrets.CODECOV_TOKEN }}
-
+            name: Code-Coverage-Report
+            path: coverage
+            retention-days: 1
 
