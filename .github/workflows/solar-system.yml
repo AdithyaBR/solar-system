@@ -16,13 +16,13 @@ jobs:
         strategy:
           matrix:
             node-version: [18,20]
-            operating-system: [ubuntu-latest, macos-latest]
+            operating-system: [ubuntu-latest, ubuntu-24.04, macos-latest]
             exclude:
               - node-version: 18
                 operating-system: macos-latest
               - node-version: 20
                 operating-system: macos-latest                
-        runs-on: ubuntu-latest
+        runs-on: matrix.operating-system
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -43,6 +43,27 @@ jobs:
           with:
             name: Mocha-Test-Result-${{ matrix.node-version }}
             path: test-results.xml 
+    code-coverage:
+        name: Code Coverage
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
 
+        - name: Setup NodeJS Version
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+    
+        - name: Install Dependencies
+          run: npm install
+    
+        - name: Run Code Coverage
+          run: npm run coverage
+    
+        - name: Upload Code Coverage to Codecov
+          uses: codecov/codecov-action@v3
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
 
 
