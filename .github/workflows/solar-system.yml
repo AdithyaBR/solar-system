@@ -18,8 +18,10 @@ jobs:
             node-version: [18,20]
             operating-system: [ubuntu-latest, macos-latest]
             exclude:
-              - node-version: [18,20]
+              - node-version: 18
                 operating-system: macos-latest
+              - node-version: 20
+                operating-system: macos-latest                
         runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
