@@ -22,7 +22,7 @@ jobs:
                 operating-system: macos-latest
               - node-version: 20
                 operating-system: macos-latest                
-        runs-on: matrix.operating-system
+        runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
