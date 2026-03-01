@@ -31,7 +31,6 @@ jobs:
           run: npm install
     
         - name: Unit Testing
-          if: runner.os == 'Linux'
           run: |
             npm test
             echo "linux"
