@@ -9,7 +9,7 @@ on:
 env:
   MONGODB_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'  
   MONGODB_USER: ${{vars.MONGODB_USER}}
-  MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}'  
+  MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}  
 jobs:
     unit-testing:
         name: Unit Testing
